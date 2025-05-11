@@ -1,0 +1,50 @@
+CAPITALIA - Monopoly  
+=====================
+
+== Instrucciones de Ejecución  
+
+1. Requisitos Previos 
+   - Tener instalado [Racket](https://download.racket-lang.org/) (versión 8.x o superior).  
+   - Todos los archivos del proyecto deben estar en la misma carpeta.  
+
+2. Archivos Necesarios
+   - `jugador_21781369_Martin_Araya.rkt` (TDA Jugador)  
+   - `juego_21781369_Martin_Araya.rkt` (TDA Juego y lógica principal)  
+   - `propiedad_21781369_Martin_Araya.rkt` (TDA Propiedad)  
+   - `carta_21781369_Martin_Araya.rkt` (TDA Cartas de Suerte/Comunidad)
+   - `tablero_21781369_Martin_ArayaGaete` (TDA tablero de casillas)
+   - `main_21781369_Martin_ArayaGaete` (main, donde se hará el require)
+
+3. Ejecución 
+   - Abrir el archivo `script1_21781369_Martin_ArayaGaete` o `script2_21781369_Martin_ArayaGaete` en DrRacket.  
+   - Ejecutar el programa (botón "Run").  
+   - El juego inicia con dos jugadores
+
+4. Simulación de Turnos 
+   - Para probar el flujo del juego, use el script proporcionado. 
+       (si desea crear uno propio, procure:
+           - Crear todas las casillas sin saltos (consecutivo = 0, 1, 2, 3, .... n-1)
+           - Seguir el script `script_base_21781369_Martin_ArayaGaete` para ver la estructura de creación
+           - Solo jugar con juego-jugar-turno)
+   - Ejemplo de lanzamiento de dados:  
+     ```
+     (juego-jugar-turno juego_actual (juego-lanzar-dados 2 3) #t #f #f #f)
+     ```  
+     - `#t`/`#f` activan/desactivan compra, construcción, multa o uso de tarjetas.  
+
+5. Reglas Clave  
+   - Bancarrota: Un jugador pierde si su dinero llega a menos de 0.  
+   - Cárcel:  
+     - Pagar $500 o usar tarjeta para salir.  
+     - Tres dobles seguidos envían a la cárcel o sacarte de ella.  
+   - Cartas: 
+     - Las cartas de Suerte/Comunidad se activan al caer en sus casillas.  
+
+6. Notas
+   - Las propiedades se identifican por ID.  
+   - El tablero incluye posiciones predefinidas (ej: "CÁRCEL" en posición 13).  
+   - Para depurar, active mensajes con `displayln` en las funciones clave.  
+
+Contacto
+- Autor: Martín Araya  
+- Correo: martin.araya.g@usach.cl

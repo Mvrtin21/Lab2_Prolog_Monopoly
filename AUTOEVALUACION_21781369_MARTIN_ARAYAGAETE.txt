@@ -1,0 +1,42 @@
+=========================================
+AUTOEVALUACION_21781369_MARTIN_ARAYAGAETE
+=========================================
+
+1.  RNF1  - Autoevaluación:                                1
+2.  RNF2  - Lenguaje:                                      1
+3.  RNF3  - Versión:                                       1    
+4.  RNF4  - Standard:                                      1
+5.  RNF5  - No variables:                                  1
+6.  RNF6  - Documentación:                                 1
+7.  RNF7  - Dom->Rec:                                      1
+8.  RNF8  - Organización:                                  1
+9.  RNF9  - Historial:                                     1
+10. RNF10 - Script de pruebas:                             1
+11. RNF11 - Prerrequisitos:                                1
+
+12. RF01  - TDAs:                                          1
+13. RF02  - TDA Jugador - constructor:                     0,75
+14. RF03  - TDA Propiedad - constructor:                   1
+15. RF04  - TDA Carta - constructor:                       1
+16. RF05  - TDA Tablero - constructor:                     1
+17. RF06  - TDA Juego - constructor:                       1
+18. RF07  - Tablero - modificador - Agregar propiedad:     1
+19. RF08  - TDA Juego - modificador - Agregar jugador:     1
+20. RF09  - TDA Juego - selector - obtener jugador actual: 1
+21. RF10  - TDA juego - otros - lanzar dados:              1
+22. RF11  - Jugador - modificador - Mover Jugador:         1
+23. RF12  - Jugador - modificador - Comprar propiedad:     1
+24. RF13  - TDA Jugador - otros - Calcular Renta:          1
+25. RF14  - TDA Propiedad - otros - Calcular Renta:        1
+26. RF15  - TDA Propiedad- modificador -Construir Casa:    1
+27. RF16  - TDA Juego - modificador -Construir Hotel:      1
+28. RF17  - TDA Jugador - otros - Pagar Renta:             1
+29. RF18  - Propiedad - modificador - Hipotecar Propiedad: 1
+30. RF19  - Juego - modificador -Extraer carta:            1
+31. RF20  - TDA Jugador - otros - Verificar bancarrota:    1
+32. RF21  - TDA Juego - modificador - Realizar turno:      0,75
+
+
+
+
+
