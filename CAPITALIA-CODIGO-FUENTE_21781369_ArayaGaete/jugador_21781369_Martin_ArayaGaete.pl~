@@ -1,0 +1,43 @@
+/*
+TDA JUGADOR:
+Desc: Representa a un jugador en el juego.
+Estrategia: Se usa una estructura basada en listas para representar al jugador.
+
+Argumentos:
+- Id (int): Identificador único del jugador.
+- Nombre (string): Nombre del jugador.
+- Dinero (int): Cantidad de dinero disponible.
+- Propiedades (list): Lista de identificadores de propiedades que posee.
+- PosicionActual (int): Posición actual en el tablero.
+- EstaEnCarcel (boolean): Indica si el jugador está en la cárcel (true/false).
+- TotalCartasSalir (int): Número de cartas "Salir de la Cárcel Gratis" que posee.
+
+Salida:
+- TdaJugador (list): Representación del jugador como una lista de sus atributos.
+   -> Se agrega Contador (int): Un contador inicializado en 0 para futuras funcionalidades.
+*/
+
+
+jugador(Id, Nombre, Dinero, Propiedades, PosicionActual, EstaEnCarcel, TotalCartasSalir, TdaJugador) :-
+    TdaJugador = [Id, Nombre, Dinero, Propiedades, PosicionActual, EstaEnCarcel, TotalCartasSalir, 0].
+
+% Se accede al sexto elemento de la lista del jugador.
+get_IdJugador([ Id |_], Id).
+
+% Se accede al segundo elemento de la lista del jugador.
+get_Nombre([_, Nombre |_], Nombre).
+
+% Se accede al tercer elemento de la lista del jugador.
+get_Dinero([_, _, Dinero|_], Dinero).
+
+% Se accede al cuarto elemento de la lista del jugador.
+get_Propiedades([_, _, _, Propiedades|_], Propiedades).
+
+% Se accede al quinto elemento de la lista del jugador.
+get_PosicionActual([_, _, _,_ , PosicionActual|_], PosicionActual).
+
+% Se accede al sexto elemento de la lista del jugador.
+get_EstaEnCarcel([_, _, _, _, _, Estado | _], Estado).
+
+% Se accede al septimo elemento de la lista del jugador.
+get_TotalCartasSalir([_, _, _,_ , _, TotalCartasSalir|_], TotalCartasSalir).
