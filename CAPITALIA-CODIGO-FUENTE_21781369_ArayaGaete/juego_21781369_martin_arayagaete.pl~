@@ -71,35 +71,3 @@ set_MaximoCasasJuego([X, Y, Z, A, B, C, _ | Resto], NuevoMaximoCasas, [X, Y, Z, 
 
 /* Actualiza el máximo de hoteles. */
 set_MaximoHotelesJuego([X, Y, Z, A, B, C, D, _], NuevoMaximoHoteles, [X, Y, Z, A, B, C, D, NuevoMaximoHoteles]).
-
-
-
-/*               Funciones              */
-
-/*
-Desc: Predicado para agregar un jugador a la partida.
-
-Estrategia: Se extrae la lista actual de jugadores, se reconstruye el
-tda jugador, se actualiza la lista de
-jugadores en el juego y, finalmente, se ajusta el DineroBanco restándole
-1500.
-Ejemplo de uso:
-  juegoAgregarJugador(G1, J1, G1_v2).
-*/
-
-juegoAgregarJugador(JuegoIn, JugadorIn, JuegoOut) :-
-    CapitalInicial = 1500,
-    %se extraen los datos del JugadorIn
-    JugadorIn = jugador(Id, Nombre, _, Prop, Pos, Carcel, Cartas, _),
-    NuevoTdaJugador = [Id, Nombre, CapitalInicial, Prop, Pos, Carcel, Cartas, 0],
-    NuevoJugador = jugador(Id, Nombre, CapitalInicial, Prop, Pos, Carcel, Cartas, NuevoTdaJugador),
-
-    %se actualiza la lista de jugadores en el juego:
-    get_JugadoresJuego(JuegoIn, Jugadores),
-    append(Jugadores, [NuevoJugador], NuevosJugadores),
-    set_JugadoresJuego(JuegoIn, NuevosJugadores, JuegoIntermedio),
-
-    %se actualiza el dinero del banco, descontando el capital inicial asignado
-    get_DineroBancoJuego(JuegoIntermedio, Banco),
-    NuevoBanco is Banco - CapitalInicial,
-    set_DineroBancoJuego(JuegoIntermedio, NuevoBanco, JuegoOut).
