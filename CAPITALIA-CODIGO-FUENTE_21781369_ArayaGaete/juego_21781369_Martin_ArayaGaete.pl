@@ -122,3 +122,79 @@ juegoObtenerJugadorActual(Juego, JugadorActual) :-
     get_JugadoresJuego(Juego, Jugadores),
     get_TurnoActualJuego(Juego, TurnoActual),
     indexTurno(TurnoActual, Jugadores, JugadorActual).
+
+
+% verificar despues xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+% ------------------- GETTERS DEL TDA JUEGO -------------------
+:- discontiguous get_NumeroDadosJuego/2.
+/* Se accede al primer elemento de la lista del juego (Jugadores). */
+get_JugadoresJuego([Jugadores|_], Jugadores).
+
+/* Se accede al cuarto elemento de la lista del juego (NumeroDados). */
+get_NumeroDadosJuego([_,_,_,NumeroDados|_], NumeroDados).
+
+/* Se accede al quinto elemento de la lista del juego (TurnoActual). */
+get_TurnoActualJuego([_,_,_,_,TurnoActual|_], TurnoActual).
+
+% ------------------- PREDICADOS PARA JUGADOR ACTUAL -------------------
+
+/* Implementación básica de nth0/3 con nombre indexTurno/3 (índice basado en 0) */
+indexTurno(0, [Head|_], Head).
+indexTurno(Index, [_|Tail], Element) :-
+    Index > 0,
+    Index1 is Index - 1,
+    indexTurno(Index1, Tail, Element).
+
+/*
+Predicado: juegoObtenerJugadorActual/2
+Descripción: Dado un TDA juego, obtiene el jugador actual (el de cuyo turno se trata).
+Ejemplo de uso:
+  ?- juego([martin, sofia], [casilla1, casilla2], 100, 2, 0, 2, 1, 1, Juego),
+     juegoObtenerJugadorActual(Juego, JugadorActual).
+*/
+juegoObtenerJugadorActual(Juego, JugadorActual) :-
+    get_JugadoresJuego(Juego, Jugadores),
+    get_TurnoActualJuego(Juego, TurnoActual),
+    indexTurno(TurnoActual, Jugadores, JugadorActual).
+
+% ------------------- SIMULACIÓN DE DADOS -------------------
+
+% Predicado: myRandom/2
+% Calcula la nueva semilla (Xn1) a partir de la semilla actual (Xn).
+myRandom(Xn, Xn1) :-
+    Xn1 is ((1103515245 * Xn) + 12345) mod 2147483648.
+
+% Predicado: getDadoRandom/3
+% Dada una semilla Seed, genera:
+%   - NvaSeed: La nueva semilla obtenida aplicando myRandom/2.
+%   - R: Un valor de dado entre 1 y 6 (R = 1 + (NvaSeed mod 6)).
+getDadoRandom(Seed, NvaSeed, R) :-
+    myRandom(Seed, NvaSeed),
+    R is 1 + (NvaSeed mod 6).
+
+% Predicado: lanzar_dados/3
+% Recibe una lista de semillas y devuelve:
+%   - Una lista de nuevas semillas.
+%   - Una lista de resultados para cada dado.
+lanzar_dados([], [], []).
+lanzar_dados([Seed|SeedsTail], [NvaSeed|NuevosSeedsTail], [R|Rs]) :-
+    getDadoRandom(Seed, NvaSeed, R),
+    lanzar_dados(SeedsTail, NuevosSeedsTail, Rs).
+
+/*
+Predicado: juegoLanzarDados/4
+Descripción:
+  Dado un TDA juego y una lista de semillas (con la cantidad de dados definida en el juego),
+  simula el lanzamiento de los dados y retorna:
+    - NuevosSeeds: Lista con las semillas actualizadas.
+    - ResultadoDados: Lista con el resultado (valor entre 1 y 6) de cada dado.
+Ejemplo de uso:
+  ?- juego([martin, sofia], [casilla1, casilla2], 100, 2, 0, 2, 1, 1, Juego),
+     juegoLanzarDados(Juego, [1,5], NuevosSeeds, ResultadoDados).
+  Con NumeroDados = 2 y usando semillas [1,5], se espera que ResultadoDados = [1,3].
+*/
+juegoLanzarDados(Juego, Seeds, NuevosSeeds, ResultadoDados) :-
+    get_NumeroDadosJuego(Juego, NumeroDados),
+    length(Seeds, NumeroDados),   % Asegura que la cantidad de semillas coincida con NumeroDados.
+    lanzar_dados(Seeds, NuevosSeeds, ResultadoDados).

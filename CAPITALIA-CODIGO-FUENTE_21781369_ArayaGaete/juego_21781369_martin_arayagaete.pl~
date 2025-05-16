@@ -103,3 +103,22 @@ juegoAgregarJugador(JuegoIn, JugadorIn, JuegoOut) :-
     get_DineroBancoJuego(JuegoIntermedio, Banco),
     NuevoBanco is Banco - CapitalInicial,
     set_DineroBancoJuego(JuegoIntermedio, NuevoBanco, JuegoOut).
+
+
+indexTurno(0, [Head|_], Head).
+indexTurno(Index, [_|Tail], Element) :-
+    Index > 0,
+    Index1 is Index - 1,
+    indexTurno(Index1, Tail, Element).
+
+/*
+Predicado: juegoObtenerJugadorActual/2
+Descripción: Dado un TDA juego, obtiene el jugador actual (el de cuyo turno se trata)
+Ejemplo de uso:
+  ?- juego([martin, sofia], [casilla1, casilla2], 100, 1, 0, 2, 1, 1, Juego),
+     juegoObtenerJugadorActual(Juego, JugadorActual).
+*/
+juegoObtenerJugadorActual(Juego, JugadorActual) :-
+    get_JugadoresJuego(Juego, Jugadores),
+    get_TurnoActualJuego(Juego, TurnoActual),
+    indexTurno(TurnoActual, Jugadores, JugadorActual).
