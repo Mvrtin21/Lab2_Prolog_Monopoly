@@ -198,3 +198,36 @@ juegoLanzarDados(Juego, Seeds, NuevosSeeds, ResultadoDados) :-
     get_NumeroDadosJuego(Juego, NumeroDados),
     length(Seeds, NumeroDados),   % Asegura que la cantidad de semillas coincida con NumeroDados.
     lanzar_dados(Seeds, NuevosSeeds, ResultadoDados).
+
+
+
+
+% ----------------- funciones malas -----------------
+
+% Suma una lista de números.
+sum_list([], 0).
+sum_list([H|T], Sum) :-
+    sum_list(T, SumT),
+    Sum is H + SumT.
+
+% Extrae el ID del jugador
+get_id_jugador(jugador(Id, _Nombre, _Dinero, _Prop, _Pos, _Carcel, _TotalCartas, _TdaJugador), Id).
+
+% Actualiza la posición del jugador sumándole SumaDados.
+actualizar_player(jugador(Id, Nombre, Dinero, Prop, Pos, Carcel, TotalCartas, TdaJugador), SumaDados,
+    jugador(Id, Nombre, Dinero, Prop, NuevoPos, Carcel, TotalCartas, TdaJugador)) :-
+    NuevoPos is Pos + SumaDados.
+
+
+moverJugador([], _, _, []).
+moverJugador([Jugador|Rest], ID, SumaDados, [NuevoJugador|Rest]) :-
+    get_id_jugador(Jugador, ID),
+    actualizar_player(Jugador, SumaDados, NuevoJugador), !.
+moverJugador([Otro|Rest], ID, SumaDados, [Otro|NewRest]) :-
+    moverJugador(Rest, ID, SumaDados, NewRest).
+
+juegoMoverJugador(JuegoIn, IDJugador, ValoresDados, JuegoOut) :-
+    sum_list(ValoresDados, SumaDados),
+    get_JugadoresJuego(JuegoIn, JugadoresIn),
+    moverJugador(JugadoresIn, IDJugador, SumaDados, JugadoresOut),
+    set_JugadoresJuego(JuegoIn, JugadoresOut, JuegoOut).
