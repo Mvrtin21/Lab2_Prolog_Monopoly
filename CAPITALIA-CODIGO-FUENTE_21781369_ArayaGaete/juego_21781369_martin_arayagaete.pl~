@@ -132,11 +132,15 @@ lanzar_n([S|Ss], C, [NS|NSs], [R|Rs]) :-
 
 % RF11: mover jugador
 % juegoMoverJugador(+JuegoIn, +IdJugador, +Dados, -JuegoOut)
-juegoMoverJugador(JuegoIn, Id, Dados, JuegoOut) :-
-  suma_lista(Dados, Sum),
-  get_JugadoresJuego(JuegoIn, Jugadores),
-  actualizar_posicion_lista(Jugadores, Id, Sum, Jug2),
-  set_JugadoresJuego(JuegoIn, Jug2, JuegoOut).
+juegoMoverJugador(JI, Id, Dados, JO) :-
+    % suma de dados
+    suma_lista(Dados, Sum),
+    % extraer jugadores
+    get_JugadoresJuego(JI, Jugadores),
+    % actualizar posición
+    actualizar_posicion(Jugadores, Id, Sum, Jugadores2),
+    % set en juego
+    set_JugadoresJuego(JI, Jugadores2, JO).
 
 % suma_lista(+L, -S)
 suma_lista([], 0).
@@ -144,61 +148,11 @@ suma_lista([X|R], S) :-
     suma_lista(R, S2),
     S is X + S2.
 
-% actualizar_posicion_lista(+ListaJug, +Id, +Delta, -ListaJug2)
-% lista de jugadores = [[Id,Nombre,Din,Props,Pos,Car,Cartas,Cont]|Resto]
-actualizar_posicion_lista([], _, _, []).
-% caso: encuentro al jugador como lista de 8 elementos
-actualizar_posicion_lista(
-  [[Id, Nombre, Dinero, Props, Pos, Car, Cartas, Cont] | Resto],
-   Id, Delta,
-  [[Id, Nombre, Dinero, Props, Pos2, Car, Cartas, Cont] | Resto]
-) :-
-  Pos2 is Pos + Delta.
-% caso: no coincide el Id, dejo la cabeza intacta
-actualizar_posicion_lista(
-  [J | Resto], Id, Delta,
-  [J | Resto2]
-) :-
-  J = [Id2|_],
-  Id2 \= Id,
-  actualizar_posicion_lista(Resto, Id, Delta, Resto2).
-
-% RF12: jugadorComprarPropiedad/3
-jugadorComprarPropiedad(
-  % jugadorIN = [Id, Nombre, Din, Props, Pos, Carc, Cart, Cont]
-  [Id, Nom, Din, Props, Pos, Carc, Cart, Cont],
-  % propiedadIN = [Pid, Name, Precio, Dueño0, Casas, EsHotel, EsHip, _]
-  [Pid, Name, Precio, _Dueño0, Casas, EsHotel, EsHip, _],
-  % jugadorOUT
-  [Id, Nom, Din2, Props2, Pos, Carc, Cart, Cont],
-  % propiedadOUT
-  [Pid, Name, Precio, Id, Casas, EsHotel, EsHip, _]
-) :-
-  % verificar fondos
-  Din >= Precio,
-  % restar dinero
-  Din2 is Din - Precio,
-  % anotar propiedad en inventario
-  append_manual(Props, [Pid], Props2).
-
-% auxiliar mínimo para concatenar listas
-append_manual([], L, L).
-append_manual([X|R], L2, [X|R3]) :-
-  append_manual(R, L2, R3).
-
-% RF13: juegoCalcularRentaPropiedad/3
-juegoCalcularRentaPropiedad(
-  % Juego = [Jugs, Tab, DB, ND, Turno, Imp, MaxC, MaxH]
-  [_, _, _, _, _, _, MaxC, _],
-  % Prop = [Pid, Name, Base, Dueño, Casas, EsHotel, EsHip, _]
-  [_, _, Base, _, Casas, EsHotel, EsHip, _],
-  Renta
-) :-
-  ( EsHip = true ->
-      Renta = 0
-  ; EsHotel = false ->
-      Renta is Base * (100 + 20*Casas) // 100
-  ;   % EsHotel = true
-      RentMax is Base * (100 + 20*MaxC) // 100,
-      Renta is RentMax * 2
-  ).
+% actualizar_posicion(+ListaJug, +Id, +Delta, -NuevaLista)
+actualizar_posicion([], _, _, []).
+actualizar_posicion([jugador(Id,Nom,Cap,Props,Pos,Car,Cart,Meta)|R], Id, D, [jugador(Id,Nom,Cap,Props,Pos2,Car,Cart,Meta)|R]) :-
+    Pos2 is Pos + D.
+actualizar_posicion([J|R], Id, D, [J|R2]) :-
+    J = jugador(Id2,_,_,_,_,_,_,_),
+    Id2 \= Id,
+    actualizar_posicion(R, Id, D, R2).
