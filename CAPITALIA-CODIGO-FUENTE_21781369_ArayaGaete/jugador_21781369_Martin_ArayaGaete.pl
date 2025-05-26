@@ -34,17 +34,16 @@ get_Dinero([_, _, Dinero|_], Dinero).
 get_Propiedades([_, _, _, Propiedades|_], Propiedades).
 
 % Se accede al quinto elemento de la lista del jugador.
-get_PosicionActual([_, _, _,_ , PosicionActual|_], PosicionActual).
+get_PosicionActual([_, _, _, _, PosicionActual|_], PosicionActual).
 
 % Se accede al sexto elemento de la lista del jugador.
 get_EstaEnCarcel([_, _, _, _, _, Estado | _], Estado).
 
 % Se accede al septimo elemento de la lista del jugador.
-get_TotalCartasSalir([_, _, _,_ , _, TotalCartasSalir|_], TotalCartasSalir).
+get_TotalCartasSalir([_, _, _, _, _, _, TotalCartasSalir|_], TotalCartasSalir).
 
 % Se accede al octavo elemento de la lista del jugador.
-get_ContadorCarcel([_, _, _,_ , _,_, Contador|_], Contador).
-
+get_ContadorCarcel([_, _, _,_ , _, _, _, Contador], Contador).
 
 /*               SETTERS              */
 

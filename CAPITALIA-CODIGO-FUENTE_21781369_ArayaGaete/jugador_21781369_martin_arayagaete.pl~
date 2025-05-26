@@ -45,5 +45,29 @@ get_TotalCartasSalir([_, _, _,_ , _, TotalCartasSalir|_], TotalCartasSalir).
 % Se accede al octavo elemento de la lista del jugador.
 get_ContadorCarcel([_, _, _,_ , _,_, Contador|_], Contador).
 
-% Se accede al noveno elemento de la lista del jugador.
-get_ImpuestoJugador([_, _, _,_ , _,_, _, Impuesto], Impuesto).
+
+/*               SETTERS              */
+
+% actualiza Id
+set_IdJugador([_|R], XN, [XN|R]).
+
+% actualiza Nombre
+set_Nombre([X, _|R], YN, [X, YN|R]).
+
+% actualiza Dinero
+set_Dinero([X, Y, _|R], ZN, [X, Y, ZN|R]).
+
+% actualiza Propiedades
+set_Propiedades([X, Y, Z, _|R], AN, [X, Y, Z, AN|R]).
+
+% actualiza PosicionActual
+set_PosicionActual([X, Y, Z, A, _|R], BN, [X, Y, Z, A, BN|R]).
+
+% actualiza EstaEnCarcel
+set_EstaEnCarcel([X, Y, Z, A, B, _|R], CN, [X, Y, Z, A, B, CN|R]).
+
+% actualiza TotalCartasSalir
+set_TotalCartasSalir([X, Y, Z, A, B, C, _|R], DN, [X, Y, Z, A, B, C, DN|R]).
+
+% actualiza ContadorCarcel
+set_ContadorCarcel([X, Y, Z, A, B, C, D, _|R], EN, [X, Y, Z, A, B, C, D, EN|R]).
