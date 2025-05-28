@@ -19,7 +19,7 @@ Salida:
 
 
 jugador(Id, Nombre, Dinero, Propiedades, PosicionActual, EstaEnCarcel, TotalCartasSalir, TdaJugador) :-
-    TdaJugador = [Id, Nombre, Dinero, Propiedades, PosicionActual, EstaEnCarcel, TotalCartasSalir, 0].
+    TdaJugador = [Id, Nombre, Dinero, Propiedades, PosicionActual, EstaEnCarcel, TotalCartasSalir, 0, false].
 
 % Se accede al sexto elemento de la lista del jugador.
 get_IdJugador([ Id |_], Id).
@@ -43,7 +43,11 @@ get_EstaEnCarcel([_, _, _, _, _, Estado | _], Estado).
 get_TotalCartasSalir([_, _, _, _, _, _, TotalCartasSalir|_], TotalCartasSalir).
 
 % Se accede al octavo elemento de la lista del jugador.
-get_ContadorCarcel([_, _, _,_ , _, _, _, Contador], Contador).
+get_ContadorCarcel([_, _, _, _, _, _, _, Contador|_], Contador).
+
+% Se accede al noveno elemento de la lista del jugador.
+get_RecorrioTablero([_, _, _,_ , _, _, _, _, Recorrio], Recorrio).
+
 
 /*               SETTERS              */
 
@@ -70,3 +74,6 @@ set_TotalCartasSalir([X, Y, Z, A, B, C, _|R], DN, [X, Y, Z, A, B, C, DN|R]).
 
 % actualiza ContadorCarcel
 set_ContadorCarcel([X, Y, Z, A, B, C, D, _|R], EN, [X, Y, Z, A, B, C, D, EN|R]).
+
+% actualiza si recorrio tablero
+set_RecorrioTablero([X, Y, Z, A, B, C, D, E, _|R], EN, [X, Y, Z, A, B, C, D, E, EN|R]).
