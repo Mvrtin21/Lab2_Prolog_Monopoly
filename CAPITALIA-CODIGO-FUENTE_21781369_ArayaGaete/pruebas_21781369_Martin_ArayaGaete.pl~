@@ -1,5 +1,0 @@
-:- ensure_loaded('jugador_21781369_Martin_ArayaGaete.pl').
-:- ensure_loaded('propiedad_21781369_Martin_ArayaGaete.pl').
-:- ensure_loaded('carta_21781369_Martin_ArayaGaete.pl').
-:- ensure_loaded('tablero_21781369_Martin_ArayaGaete.pl').
-:- ensure_loaded('juego_21781369_Martin_ArayaGaete.pl').
