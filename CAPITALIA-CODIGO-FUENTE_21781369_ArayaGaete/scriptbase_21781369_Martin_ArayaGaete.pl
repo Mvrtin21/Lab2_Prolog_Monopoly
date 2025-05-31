@@ -1,0 +1,92 @@
+jugador( 1, "jugador1", 1500, [], 0, false, 0, J1),
+jugador( 2, "jugador2", 1500, [], 0, false, 0, J2),
+
+propiedad(21, "Avenida Bar HbH",         350, 200, null, 0, false, false, P1),
+propiedad(22, "Universidad de Santiago", 700, 200, null, 0, false, false, P2),
+propiedad(23, "Estación Central",        100, 300, null, 0, false, false, P3),
+
+carta( 1, "suerte", "Avance hasta la casilla de salida", irASalida, C1),
+carta( 2, "suerte", "Mover el jugador a la carcel", irACarcel, C2),
+carta( 3, "comunidad", "Cambia el impuesto del juego", cambiarImpuesto(21), C3),
+carta( 4, "suerte", "Gana 100.000.000", ganarDinero(100000000), C4),
+tablero([], [C1, C2, C4], [C3], [], T1),
+juego( [], T1, 200000, 2, 0, 10, 4, 1, G1),
+tableroAgregarPropiedades(T1, [[P1, 1], [P2, 2], [P3, 8]], T1_v2),
+juegoAgregarJugador( G1, J1, G1_v2),
+juegoAgregarJugador( G1_v2, J2, G1_v3),
+set_TableroJuego(G1_v3, T1_v2, G1_v4),
+juegoObtenerJugadorActual(G1_v4, JA_v1), % JA_v1 debería ser igual a J1
+SDado1 = 1, SDado2 = 5,
+juegoLanzarDados(G1_v4, [SDado1, SDado2], [SDado1_v2, SDado2_v2], DADOS),
+get_IdJugador(JA_v1, ID_JA_v1),
+juegoMoverJugador( G1_v4, ID_JA_v1, DADOS, G1_v5),
+jugadorComprarPropiedad(JA_v1, P1, P1_v2, JA_v2),
+jugadorComprarPropiedad(J2, P3, P3_v2, JA_v3),
+
+%Cree un predicado para poder actualizar a un jugador en una partida:
+actualizar_jugador(G1_v5, JA_v3, GameOut_v5),
+
+
+% debe dar false, supongamos P3 no puede pagarla el jugador 1:
+% jugadorComprarPropiedad(JA_v1, P3, JA_v2),
+juegoCalcularRentaPropiedad(G1_v5, P1_v2, MONTO_RENTA_P1),
+juegoCalcularRentaPropiedad(G1_v5, P3_v2, MONTO_RENTA_P3),
+juegoCalcularRentaJugador(GameOut_v5, JA_v3, MONTO_RENTA_JACTUAL_v3),
+juegoConstruirCasa(G1_v5, P1_v2, G1_v6),
+juegoConstruirCasa(G1_v6, P1_v2, G1_v7),
+juegoConstruirCasa(G1_v7, P1_v2, G1_v8),
+juegoConstruirCasa(G1_v8, P1_v2, G1_v9),
+
+set_TurnoActualJuego(G1_v9, 1, G1_v91),
+
+juegoConstruirCasa(G1_v91, P3_v2, G1_v10),
+
+set_TurnoActualJuego(G1_v10, 0, G1_v101),
+
+juegoConstruirHotel(G1_v101, P1_v2, G1_v11),
+
+
+% debe dar false, no se alcanzó la cantidad de casas para construir hotel
+%juegoConstruirHotel(G1_v11, P3_v2, G1_v11_f),
+
+
+jugadorPagarRenta(J1, J2, 50, J1_v2, J2_v2),
+% debe dar negativo el monto que le queda al jugador 1, porque no tiene dinero
+jugadorPagarRenta(J1_v2, J2_v2, 50000000000, J1_v3, J2_v3),
+propiedadHipotecar(P3_v2, P3_v3),
+
+
+% en el juego se definió que se usarían 2 dados, se manejan 2 semillas
+S0_x0 = 1,
+S1_x0 = 5,
+
+% S1_x0 debería ser igual a S1_x1, ya que sólo se usa la primera semilla del array
+juegoExtraerCarta(G1_v11, "suerte", [S0_x0, S1_x0], NewSeed0, G1_v12, Cob1),
+
+% debe dar false, porque la variable J1 es el jugador 1 cuando aún no le pagaba
+% la renta al jugador 2
+% jugadorEstaEnBancarrota(J1_v2),
+jugadorEstaEnBancarrota(J1_v3), % en este caso si está en bancarrota el jugador 1
+
+juegoObtenerJugadorActual(G1_v4, JA1_v1),
+
+% el jugador con id 1 compra la propiedad con id 21
+
+
+juegoJugarTurno(G1_v4, [S0_x0, S1_x0], [S0_x1, S1_x1], jugadorComprarPropiedad, [JA1_v1ConImpuestosPagados, P1, P1Out, JA1_v2], G1_v4_2),
+
+
+juegoObtenerJugadorActual(G1_v4_2, JA2_v1),
+% el jugador con id 2 compra la propiedad con id 22
+
+
+juegoJugarTurno(G1_v4_2, [S0_x1, S1_x1], [S0_x2, S1_x2], jugadorComprarPropiedad, [JA2_v1ConImpuestosPagados, P2, P2Out, JA2_v2], G1_v4_3),
+
+% Jugador 2 juega otra vez, ya que las semillas dadas son iguales en dados.
+
+juegoObtenerJugadorActual(G1_v4_3, JA2_v2JugadoraDosConTurnoDeDobles),
+
+% el jugador 2 construye una casa en la propiedad con id 22
+set_DueñoPropiedad(P2, 2, P2Comprada),
+
+juegoJugarTurno(G1_v4_3, [S0_x2, S1_x2], [S0_x3, S1_x3], juegoConstruirCasa, [G1_v4_3, P2Comprada, G1_v4_4_1], G1_v4_4).
