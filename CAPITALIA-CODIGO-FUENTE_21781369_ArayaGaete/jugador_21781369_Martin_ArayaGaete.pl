@@ -1,3 +1,10 @@
+:- module(jugador_21781369_Martin_ArayaGaete, [jugador/8, get_IdJugador/2, get_Nombre/2, get_Dinero/2, get_Propiedades/2,
+                          get_PosicionActual/2, get_EstaEnCarcel/2, get_TotalCartasSalir/2,
+                          get_ContadorCarcel/2, get_RecorrioTablero/2, set_IdJugador/3,
+                          set_Nombre/3, set_Dinero/3, set_Propiedades/3, set_PosicionActual/3,
+                          set_EstaEnCarcel/3, set_TotalCartasSalir/3, set_ContadorCarcel/3,
+                          set_RecorrioTablero/3]).
+
 /*
 TDA JUGADOR:
 Desc: Representa a un jugador en el juego.

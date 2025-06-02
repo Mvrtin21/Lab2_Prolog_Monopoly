@@ -1,3 +1,9 @@
+:- module(tablero_21781369_Martin_ArayaGaete, [tablero/5, get_PropiedadesTablero/2, get_CartasSuerteTablero/2,
+                          get_CartasComunidadTablero/2, get_CasillasEspecialesTablero/2,
+                          set_PropiedadesTablero/3, set_CartasSuerteTablero/3,
+                          set_CartasComunidadTablero/3, set_CasillasEspecialesTablero/3,
+                          concatenar_listas/3, tableroAgregarPropiedad/3]).
+
 /*
 TDA TABLERO:
 Desc: Representa el tablero del juego, agrupando las distintas estructuras que forman

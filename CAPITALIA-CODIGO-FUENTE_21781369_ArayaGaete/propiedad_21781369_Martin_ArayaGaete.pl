@@ -1,3 +1,10 @@
+:- module(propiedad_21781369_Martin_ArayaGaete, [propiedad/9, get_IdPropiedad/2, get_NombrePropiedad/2, get_PrecioPropiedad/2,
+                            get_RentaPropiedad/2, get_DueñoPropiedad/2, get_CasasPropiedad/2,
+                            get_EsHotelPropiedad/2, get_EsHipotecadaPropiedad/2, set_IdPropiedad/3,
+                            set_NombrePropiedad/3, set_PrecioPropiedad/3, set_RentaPropiedad/3,
+                            set_DueñoPropiedad/3, set_CasasPropiedad/3, set_EsHotelPropiedad/3,
+                            set_EsHipotecadaPropiedad/3]).
+
 /*
 TDA PROPIEDAD:
 Desc: Representa a una propiedad en el juego.

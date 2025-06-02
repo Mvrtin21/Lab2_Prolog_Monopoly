@@ -1,3 +1,6 @@
+:- module(carta_21781369_Martin_ArayaGaete, [carta/5, get_IdCarta/2, get_TipoCarta/2, get_DescripcionCarta/2, get_AccionCarta/2,
+                        set_IdCarta/3, set_TipoCarta/3, set_DescripcionCarta/3, set_AccionCarta/3]).
+
 /*
 TDA CARTA:
 Desc: Representa una carta del juego, encapsulando su identificador, tipo,
