@@ -1,4 +1,3 @@
-
 % 1) Creo 2 jugadores
 jugador(21, "Martín",    21, [], 0, false, 0, J1),
 jugador(2, "Catalina", 4, [], 0, false, 0, J2),
@@ -6,7 +5,7 @@ jugador(2, "Catalina", 4, [], 0, false, 0, J2),
 % 2) Creo 10 propiedades normales
 propiedad(2,  "Cerro San Cristóbal", 1200, 1200, null, 0, false, false, P2),
 propiedad(3,  "Plaza Italia",        1800,  900, null, 0, false, false, P3),
-propiedad(4,  "Bellavista",          2200, 1100, null, 0, false, false, P4),
+propiedad(4,  "Bellavista",          1200, 1100, null, 0, false, false, P4),
 propiedad(5,  "Vitacura",            2400, 1300, null, 0, false, false, P5),
 propiedad(6,  "Barrio Italia",       1600,  800, null, 0, false, false, P6),
 propiedad(7,  "Ñuñoa",               2000, 1000, null, 0, false, false, P7),
@@ -61,8 +60,42 @@ juego([],  T1, 20000, 2, 0, 10, 4, 1, G0),
 juegoAgregarJugador(G0, J1, G1),
 juegoAgregarJugador(G1, J2, G2),
 
-% 9) Simulo tres turnos
 
+
+juegoObtenerJugadorActual(G2, JugadorActual0), % JugadorActual0 debería ser igual a J1
+SDado1 = 3, SDado2 = 5,
+juegoLanzarDados(G2, [SDado1, SDado2], [Semilla1, Semilla2], DADOSdePrueba),
+
+%deberia dar [5, 6]:
+juegoLanzarDados(G2, [3, 4], [Semilla3, Semilla4], DadosPrueba),
+
+%deberia dar [4, 1]:
+juegoLanzarDados(G2, [6, 1], [Semilla5, Semilla6], DadosPruebA),
+
+% prueba de la extraccion cartas
+
+
+
+get_IdJugador(JugadorActual0, ID_deJugadorActual0),
+juegoMoverJugador(G2, ID_deJugadorActual0, DadosPruebA, JuegoMover2),
+
+jugadorComprarPropiedad(JugadorActual0, P2, P2_v2, Jugador1_v2),
+
+
+actualizar_propiedad(JuegoMover2, P2_v2, Juego3_1),
+actualizar_propiedad(Juego3_1, P4_v2, Juego3),
+
+% debe dar false, supongamos P3 no puede pagarla el jugador 1:
+% jugadorComprarPropiedad(JA_v1, P3, JA_v2),
+juegoCalcularRentaPropiedad(Juego3, P2_v2, MONTO_RENTA_P2),
+juegoCalcularRentaPropiedad(Juego3, P4_v2, MONTO_RENTA_P4),
+
+juegoCalcularRentaJugador(Juego3, Jugador1_v2, MONTO_RENTA_JACTUAL_v3),
+
+juegoConstruirCasa(Juego3, P2_v2, Juego4),
+
+
+% 9) Simulo tres turnos
 juegoJugarTurno(G2, [4,3], Seeds1, jugadorComprarPropiedad, [JugadorConGanasDeComprarPropiedad, P2,P2Out, JugadorConPropiedad], G3),
 juegoJugarTurno(G3, [4,1], Seeds2, ninguna, [], G4),
 juegoJugarTurno(G4, [2,1], Seeds3, ninguna, [loquepongaaquinoimporta], G5),
