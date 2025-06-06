@@ -3,15 +3,15 @@ jugador(21, "Martín",    21, [], 0, false, 0, J1),
 jugador(2, "Catalina", 4, [], 0, false, 0, J2),
 
 % 2) Creo 10 propiedades normales
-propiedad(2,  "Cerro San Cristóbal", 1200, 1200, null, 0, false, false, P2),
+propiedad(2,  "Cerro San Cristóbal", 1200, 100, null, 0, false, false, P2),
 propiedad(3,  "Plaza Italia",        1800,  900, null, 0, false, false, P3),
-propiedad(4,  "Bellavista",          1200, 1100, null, 0, false, false, P4),
-propiedad(5,  "Vitacura",            2400, 1300, null, 0, false, false, P5),
-propiedad(6,  "Barrio Italia",       1600,  800, null, 0, false, false, P6),
-propiedad(7,  "Ñuñoa",               2000, 1000, null, 0, false, false, P7),
-propiedad(8,  "Providencia",         2600, 1400, null, 0, false, false, P8),
-propiedad(9,  "Las Condes",          3000, 1500, null, 0, false, false, P9),
-propiedad(10, "San Miguel",          1000,  850, null, 0, false, false, P10),
+propiedad(4,  "Bellavista",          1200, 100, null, 0, false, false, P4),
+propiedad(5,  "Vitacura",            1400, 100, null, 0, false, false, P5),
+propiedad(6,  "Barrio Italia",       1100,  800, null, 0, false, false, P6),
+propiedad(7,  "Ñuñoa",               1000, 100, null, 0, false, false, P7),
+propiedad(8,  "Providencia",         1600, 100, null, 0, false, false, P8),
+propiedad(9,  "Las Condes",          1000, 100, null, 0, false, false, P9),
+propiedad(10, "San Miguel",          900,  85, null, 0, false, false, P10),
 
 
 % 3) Casillas especiales
